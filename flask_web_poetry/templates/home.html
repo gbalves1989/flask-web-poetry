@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+    <div class="col-sm-12 col-xl-8 pt-5 ps-5">
+        <div class="bg-secondary rounded h-100 p-4">
+            <div>
+                <h6 class="mb-4">Lista de Categorias</h6>
+            </div>
+
+            {% if categories %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome da Categoria</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <th scope="row">{{ category.id }}</th>
+                                <td>{{ category.name }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <span>Nenhuma categoria cadastrada neste momento</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-xl-8 pt-5 ps-5">
+        <div class="bg-secondary rounded h-100 p-4">
+            <div>
+                <h6 class="mb-4">Lista de Produtos</h6>
+            </div>
+
+            {% if products %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome do Produto</th>
+                            <th scope="col">ID Categoria</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <th scope="row">{{ product.id }}</th>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <span>Nenhuma produto cadastrado neste momento</span>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

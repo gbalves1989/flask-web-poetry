@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} Produtos {% endblock %}
+
+{% block content %}
+    <div class="col-sm-12 col-xl-8 pt-5 ps-5">
+        <div class="bg-secondary rounded h-100 p-4">
+            <div>
+                <h6 class="mb-4">Lista de Produtos</h6>
+                <a href="{{ url_for('product_routes.page_create_product') }}" class="btn btn-success m-2">Adicionar</a>
+            </div>
+
+            {% if products %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome do Produto</th>
+                            <th scope="col">ID Categoria</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>
+                                    <a href="{{ url_for('product_routes.page_edit_product', product_id=product.id) }}" class="btn btn-info m-2">Editar</a>
+                                    <a href="{{ url_for('product_routes.page_delete_product', product_id=product.id) }}" class="btn btn-danger m-2">Excluir</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <span>Nenhuma produto cadastrado neste momento</span>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

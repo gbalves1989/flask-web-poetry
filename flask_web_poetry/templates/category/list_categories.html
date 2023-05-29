@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Categorias {% endblock %}
+
+{% block content %}
+    <div class="col-sm-12 col-xl-8 pt-5 ps-5">
+        <div class="bg-secondary rounded h-100 p-4">
+            <div>
+                <h6 class="mb-4">Lista de Categorias</h6>
+                <a href="{{ url_for('category_routes.page_create_category') }}" class="btn btn-success m-2">Adicionar</a>
+            </div>
+
+            {% if categories %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome da Categoria</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ category.name }}</td>
+                                <td>
+                                    <a href="{{ url_for('category_routes.page_edit_category', category_id=category.id) }}" class="btn btn-info m-2">Editar</a>
+                                    <a href="{{ url_for('category_routes.page_delete_category', category_id=category.id) }}" class="btn btn-danger m-2">Excluir</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <span>Nenhuma categoria cadastrada neste momento</span>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

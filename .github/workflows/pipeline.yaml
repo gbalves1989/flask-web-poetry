@@ -1,0 +1,59 @@
+name: Pipeline
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      SQLALCHEMY_DATABASE_URI: ${{ secrets.SQLALCHEMY_DATABASE_URI }}
+      SQLALCHEMY_TRACK_MODIFICATIONS: ${{ secrets.SQLALCHEMY_TRACK_MODIFICATIONS }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      UPLOAD_FOLDER: ${{ secrets.UPLOAD_FOLDER }}
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: flask_web_poetry_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - "5432:5432"
+        options: 
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Cópia dos arquivos do repo
+        uses: actions/checkout@v3
+
+      - name: Instalar o python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.3'
+        
+      - name: Instalação do poetry
+        run: pip install poetry
+
+      - name: Instalação das dependências do projeto
+        run: poetry install
+
+      - name: Criando diretório de migrações
+        run: poetry run task init
+
+      - name: Iniciando as migrações
+        run: poetry run task migrate
+
+      - name: Executando as migrações
+        run: poetry run task upgrade
+      
+      - name: Executando os testes
+        run: poetry run task test 
+      
+      - name: Subindo a cobertura de testes para o codedev
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

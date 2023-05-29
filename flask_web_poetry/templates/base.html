@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        {% include 'layouts/config_head.html' %}
+        <title>Flask-Web - {% block title %}{% endblock %}</title>
+    </head>
+
+    <body>
+        <div class="container-fluid d-flex p-0">
+            <div class="content">
+                {% include 'layouts/sidebar.html' %}
+
+                {% include 'layouts/header.html' %}
+
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
+        {% include 'layouts/config_js.html' %}
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <script >
+                        $.notify('{{message}}', '{{category}}');
+                    </script>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </body>
+</html>

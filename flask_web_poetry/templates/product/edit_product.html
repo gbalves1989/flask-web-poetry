@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Produtos {% endblock %}
+
+{% block content %}
+    <div class="col-sm-12 col-xl-8 pt-5 ps-5">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">Editar Produto</h6>
+
+            <form class="form-product-edit" method="POST"
+                  action="{{ url_for('product_routes.page_update_product', product_id=product_id) }}"
+            >
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+                    {{ form.name.label(class="form-label") }}
+                    {{ form.name(class="form-control") }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="categoryInput" class="form-label">Categoria Vinculada</label>
+                    <input type="text" class="form-control" id="categoryInput" value="{{ category_id }} - {{ category_name }}">
+                </div>
+
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

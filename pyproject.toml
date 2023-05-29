@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "flask-web-poetry"
+version = "0.1.0"
+description = ""
+authors = ["gbalves1989 <gbalves1989@gmail.com>"]
+readme = "README.md"
+packages = [{include = "flask_web_poetry"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^2.3.2"
+flask-bcrypt = "^1.0.1"
+flask-login = "^0.6.2"
+flask-marshmallow = "^0.15.0"
+flask-migrate = "^4.0.4"
+flask-wtf = "^1.1.1"
+flask-sqlalchemy = "^3.0.3"
+marshmallow = "^3.19.0"
+marshmallow-sqlalchemy = "^0.29.0"
+psycopg2-binary = "^2.9.6"
+python-dotenv = "^1.0.0"
+sqlalchemy = "^2.0.15"
+wtforms = "^3.0.1"
+email-validator = "^2.0.0.post2"
+
+
+[tool.poetry.group.dev.dependencies]
+blue = "^0.9.1"
+isort = "^5.12.0"
+taskipy = "^1.11.0"
+coverage = "^7.2.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[tool.taskipy.tasks]
+init = "flask db init"
+migrate = "flask db migrate"
+upgrade = "flask db upgrade"
+run = "python app.py"
+lint = "blue --check --diff app.py config.py ./flask_web_poetry && isort --check --diff app.py config.py ./flask_web_poetry"
+pre_test = "task lint"
+test = "python -m coverage run --omit=flask_web_poetry/entities/*.py,flask_web_poetry/interfaces/*.py,flask_web_poetry/forms/**/*.py,flask_web_poetry/routes/*.py,flask_web_poetry/models/*.py,flask_web_poetry/services/*.py,,flask_web_poetry/utils/*.py -m unittest && python -m coverage report"
+post_test = "python -m coverage html"
