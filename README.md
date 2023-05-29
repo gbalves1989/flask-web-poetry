@@ -2,10 +2,8 @@
 [![codecov](https://codecov.io/gh/gbalves1989/flask-poetry/branch/main/graph/badge.svg?token=8BJ02V70OK)](https://codecov.io/gh/gbalves1989/flask-web-poetry)
 [![Pipeline](https://github.com/gbalves1989/flask-poetry/actions/workflows/pipeline.yaml/badge.svg)](https://github.com/gbalves1989/flask-poetry/actions/workflows/pipeline.yaml)
 
-## Api desenvolvida em python com flask.
+## Website desenvolvido em python com flask.
 - Gerenciador de dependências com poetry
-- API documentada usando flask-openapi3
-- Autenticação com JWT
 - Testes usando unittest
 - CI/CD Github Actions
 - Cobertura de testes usando Codecov 
@@ -15,7 +13,7 @@
   - SQLALCHEMY_DATABASE_URI= Ex.(postgresql://usuario:senha@host:porta/nome-do-banco) 
   - SQLALCHEMY_TRACK_MODIFICATIONS=False -> True ou False
   - SECRET_KEY= (sua key)
-  - EXPIRES_DELTA= Ex.(tempo em segundos - 300)
+  - UPLOAD_FOLDER= Nome da pasta onde os avatares serão guardados no projeto no diretório static
 
 - Instalar o ambiente de desenvolvimento:
   - python -m venv venv
@@ -38,4 +36,4 @@
 
 - Executando a aplicação
   - task run
-  - Acessar o link -> http://localhost:5000/openapi 
+  - Acessar o link -> http://localhost:5000
